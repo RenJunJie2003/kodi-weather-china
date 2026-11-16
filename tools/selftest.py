@@ -77,7 +77,7 @@ class FakeAddon(object):
 
     def getAddonInfo(self, key):
         return {"path": ROOT, "profile": tempfile.mkdtemp(prefix="kodi-wx-"),
-                "name": "中国天气", "version": "1.0.0"}.get(key, "")
+                "name": "中国天气", "version": "1.0.1"}.get(key, "")
 
     def getSetting(self, key):
         return SETTINGS.get(key, "")
@@ -316,6 +316,81 @@ def main():
           PROPERTIES.get("Current.Temperature"))
     check("皮肤属性 Day0.Title=今天", PROPERTIES.get("Day0.Title") == "今天",
           PROPERTIES.get("Day0.Title"))
+
+    print("\n=== 6b. Kodi 天气服务（xbmc.python.weather） ===")
+    addon_tree = ET.parse(os.path.join(ROOT, "addon.xml")).getroot()
+    points = [e.get("point") for e in addon_tree.findall("extension")]
+    check("addon.xml 注册 xbmc.python.weather",
+          "xbmc.python.weather" in points, points)
+    weather_ext = [e for e in addon_tree.findall("extension")
+                   if e.get("point") == "xbmc.python.weather"]
+    check("天气入口与插件入口共用 default.py",
+          bool(weather_ext) and weather_ext[0].get("library") == "default.py")
+    with io.open(os.path.join(ROOT, "default.py"), "r", encoding="utf-8") as fp:
+        entry_source = fp.read()
+    check("default.py 能区分 plugin:// 与 RunScript",
+          'startswith("plugin://")' in entry_source and
+          "weatherprovider" in entry_source)
+    check("冗余 weather.py 已移除",
+          not os.path.isfile(os.path.join(ROOT, "weather.py")))
+    settings_tree = ET.parse(os.path.join(ROOT, "resources", "settings.xml")).getroot()
+    setting_ids = [s.get("id") for s in settings_tree.iter("setting")]
+    check("settings.xml 含 location1..3 按钮",
+          all("location%d" % i in setting_ids for i in (1, 2, 3)))
+    action_data = [d.text for d in settings_tree.iter("data")]
+    check("地点按钮 action 为紧凑单行 RunScript",
+          len(action_data) == 3 and
+          all(d and d == d.strip() and d.startswith("RunScript(")
+              for d in action_data), action_data)
+    check("地点设置字符串已中英本地化",
+          "32181" in PO_ZH and "32188" in PO_EN and
+          "32190" in PO_ZH and "32191" in PO_EN)
+    check("settings.xml 含 3 个手动输入备用框",
+          all("location%d_name" % i in setting_ids for i in (1, 2, 3)))
+
+    PROPERTIES.clear()
+    SETTINGS["location1"] = "北京"
+    SETTINGS["location2"] = ""
+    SETTINGS["location3"] = ""
+    windowprops.publish_weather(nmc_result, 1)
+    check("天气窗口 Current.Temperature 为纯数字（供 Kodi 换算单位）",
+          PROPERTIES.get("Current.Temperature", "").lstrip("-").isdigit(),
+          PROPERTIES.get("Current.Temperature"))
+    check("天气窗口 Current.OutlookIcon 为 Kodi 图标文件名",
+          bool(re.match(r"^(\d+|na)\.png$",
+                        PROPERTIES.get("Current.OutlookIcon", ""))),
+          PROPERTIES.get("Current.OutlookIcon"))
+    check("天气窗口 Daily.1.ShortDay=今天",
+          PROPERTIES.get("Daily.1.ShortDay") == "今天",
+          PROPERTIES.get("Daily.1.ShortDay"))
+    check("天气窗口 Day0.HighTemp 为纯数字",
+          PROPERTIES.get("Day0.HighTemp", "").lstrip("-").isdigit(),
+          PROPERTIES.get("Day0.HighTemp"))
+    check("天气窗口 Locations=1 / Location1=北京",
+          PROPERTIES.get("Locations") == "1" and
+          PROPERTIES.get("Location1") == "北京",
+          (PROPERTIES.get("Locations"), PROPERTIES.get("Location1")))
+    check("天气窗口 IsFetched 标记已写入",
+          PROPERTIES.get("Weather.IsFetched") == "true" and
+          PROPERTIES.get("Current.IsFetched") == "true")
+    check("Kodi 条件代码映射",
+          windowprops.kodi_code("sunny") == 32 and
+          windowprops.kodi_code("unknown") == "na")
+    check("风速 m/s → km/h", windowprops._wind_kmh({"wind_speed": 10}) == "36")
+
+    from lib import weatherprovider
+    SETTINGS["location1"] = ""
+    SETTINGS["location1_name"] = "石家庄"
+    SETTINGS["location1_nmc"] = ""
+    count = windowprops.publish_locations()
+    check("手动输入地点也能登记到天气窗口",
+          count == 1 and PROPERTIES.get("Location1") == "石家庄",
+          (count, PROPERTIES.get("Location1")))
+    loc = weatherprovider._location(1)
+    check("手填中文城市名自动解析气象站点编码",
+          bool(loc.get("nmc_code")) and loc.get("name") == "石家庄", loc)
+    SETTINGS["location1"] = "北京"
+    SETTINGS["location1_name"] = ""
 
     if online:
         print("\n=== 7. 真实接口端到端（--online） ===")

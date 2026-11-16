@@ -30,6 +30,9 @@ def run():
                 result = WeatherService().fetch_all()
                 if result.get("ok"):
                     windowprops.publish(result)
+                    # 同时写 Kodi 天气窗口(12600)：即使 RunScript 地点配置
+                    # 未被调用，皮肤天气 infolabel 也能拿到数据。
+                    windowprops.publish_weather(result)
                     config.debug("skin properties published for %s" %
                                  (result.get("location") or {}).get("name", ""))
                 else:

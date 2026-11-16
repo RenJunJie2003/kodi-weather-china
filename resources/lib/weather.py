@@ -86,8 +86,10 @@ class WeatherService(object):
         self.wcn = weathercn.WCNSource(self.fetcher, self._debug)
 
     # ------------------------------------------------------------ 主流程
-    def fetch_all(self, force=False):
-        location = config.current_location()
+    def fetch_all(self, force=False, location=None):
+        # 天气服务（xbmc.python.weather）可为不同地点传入自己的城市三元组；
+        # 插件菜单 / 后台服务不传，沿用主设置里的当前城市。
+        location = location or config.current_location()
         primary = config.get("primary_source", "auto")
         use_wcn = config.get_bool("enable_wcn", True)
         days = config.get_int("forecast_days", 7, 3, 7)

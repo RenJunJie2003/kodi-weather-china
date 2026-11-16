@@ -8,6 +8,19 @@
 <settings version="1">
   <section id="plugin.weather.china">
 
+    <!-- Kodi「设置 → 服务 → 天气」会读取 location1..3 这几个按钮，
+         点击后运行 weather.py 并传入 locationN 参数进行中文城市搜索。 -->
+    <category id="locations" label="32181" help="32185">
+      <group id="1" label="32181">
+        <setting id="location1" type="string" label="32182" help="32185"><level>0</level><default></default><constraints><allowempty>true</allowempty></constraints><control type="button" format="action"><data>RunScript(plugin.weather.china,location1)</data></control></setting>
+        <setting id="location1_name" type="string" label="32190" help="32191"><level>0</level><default></default><constraints><allowempty>true</allowempty></constraints><control type="edit" format="string"/></setting>
+        <setting id="location2" type="string" label="32183" help="32185"><level>0</level><default></default><constraints><allowempty>true</allowempty></constraints><control type="button" format="action"><data>RunScript(plugin.weather.china,location2)</data></control></setting>
+        <setting id="location2_name" type="string" label="32190" help="32191"><level>0</level><default></default><constraints><allowempty>true</allowempty></constraints><control type="edit" format="string"/></setting>
+        <setting id="location3" type="string" label="32184" help="32185"><level>0</level><default></default><constraints><allowempty>true</allowempty></constraints><control type="button" format="action"><data>RunScript(plugin.weather.china,location3)</data></control></setting>
+        <setting id="location3_name" type="string" label="32190" help="32191"><level>0</level><default></default><constraints><allowempty>true</allowempty></constraints><control type="edit" format="string"/></setting>
+      </group>
+    </category>
+
     <category id="general" label="32000" help="">
       <group id="1" label="32001">
         <setting id="city_name" type="string" label="32010" help="32011">

@@ -24,7 +24,11 @@ from . import alerts, config, icons, windowprops
 from .citydb import CityDB
 from .weather import WeatherService
 
-HANDLE = int(sys.argv[1]) if len(sys.argv) > 1 else 0
+try:
+    HANDLE = int(sys.argv[1]) if len(sys.argv) > 1 else 0
+except (TypeError, ValueError):
+    # 被 RunScript 误当作插件调用时也不应崩溃（正常路径由 default.py 判别）
+    HANDLE = 0
 PLUGIN_URL = sys.argv[0] if len(sys.argv) > 0 else "plugin://plugin.weather.china/"
 
 ICON_PATH = os.path.join(config.ADDON_PATH, "icon.png")

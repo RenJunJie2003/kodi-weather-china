@@ -16,7 +16,7 @@
 
 ### 方式 A：从 zip 安装（推荐）
 
-1. 取得 `dist/plugin.weather.china-1.0.0.zip`（仓库 Release 里直接下载；或本地执行 `python tools/make_release.py` 生成）。
+1. 取得 `dist/plugin.weather.china-1.0.1.zip`（仓库 Release 里直接下载；或本地执行 `python tools/make_release.py` 生成）。
 2. Kodi → ⚙ 设置 → **插件** → 打开「未知来源」（首次需要）→ **从 zip 文件安装** → 选择 zip。
 3. 提示「插件安装成功」后即可在 **插件 → 程序 / 我的插件 → 中国天气 China Weather** 找到。
 4. 若想常驻主菜单：在插件上长按/右键 → **添加到收藏**，或在皮肤设置里把它加入主菜单项。
@@ -135,7 +135,7 @@ python tools/selftest.py --online   # 追加真实接口端到端，60 项
 | # | 现象 | 原因 | 处理 |
 |---|---|---|---|
 | 1 | 安装报「依赖项不满足 / The dependency could not be satisfied」 | Kodi 18 或更早（Python 2），或 `xbmc.python 3.0.0` 不满足 | 升级到 Kodi 19+ |
-| 2 | 插件列表里找不到 | 本插件是 `pluginsource`，出现在「插件 → 程序」分类 | 用 Kodi 全局搜索「中国天气」，或添加到收藏/主菜单 |
+| 2 | 插件列表里找不到 | 插件菜单入口是 `pluginsource`，出现在「插件 → 程序」分类；天气服务入口则在「设置 → 服务 → 天气」 | 用 Kodi 全局搜索「中国天气」，或添加到收藏/主菜单；见第 19 条 |
 | 3 | 打开插件空白、报 Python 错误 | `resources/lib` 未完整复制、或被 zip 工具破坏了目录结构 | 重新用 `make_release.py` 打包；确认 zip 内 `plugin.weather.china/resources/lib/*.py` 齐全；看 `kodi.log` 的 Traceback |
 | 4 | 设置页打不开 / 设置项空白 | Kodi 版本过旧，不识别现代 `settings.xml` | 升级 Kodi 19+；或检查 `settings.xml` 的 `section id` 是否等于 `plugin.weather.china` |
 | 5 | 中文显示为方框 □□□ | 皮肤字体不含 CJK 字形 | 换用含中文字形的字体（如 Noto Sans CJK），或换皮肤 |
@@ -152,6 +152,9 @@ python tools/selftest.py --online   # 追加真实接口端到端，60 项
 | 16 | 接口突然全变 404 / 字段变了 | 数据源站点改版 | 先用 curl 确认；运行 `build_city_db.py` 重建索引；在 `nmc.py` / `weathercn.py` 调整解析；插件有双源降级与 24h 过期缓存可临时兜底 |
 | 17 | 只想完全重置插件 | — | 删除用户配置目录 `userdata/addon_data/plugin.weather.china/`（内含缓存与在线城市索引），重启插件；不会删除内置数据 |
 | 18 | 7 天预报里今天最高温显示 `—` | 中央气象台当日白天数据已过期（返回 `9999`） | 属正常；开启中国天气网补充后会自动用 `fc.f` 补齐当天高温 |
+| 19 | **「设置 → 服务 → 天气」的选择列表里没有「中国天气」** | 插件只注册了 `xbmc.python.pluginsource`（程序插件）；Kodi 只把带 `xbmc.python.weather` 扩展点的插件列为天气源 | 升级到含天气服务扩展点的版本；安装后在「插件 → 程序」里确认能打开，再到天气设置里选；选中后点「地点 1」配置中文城市 |
+| 20 | **天气设置里点「地点 1」没动静 / 不弹城市搜索** | Kodi 的 `RunScript(addonid,location1)` 解析到插件菜单入口，把 `location1` 当插件句柄 `int()` 转换而异常退出；也可能是升级后未重启、Kodi 缓存了旧的扩展点信息 | 覆盖安装最新版并**重启 Kodi**；先用插件菜单「切换城市」设好当前城市（天气服务会自动回退使用它，天气数据照常显示）；在 `kodi.log` 搜 `weather provider called` / `weather provider failed` 定位。新版的 `pluginsource` 与 `weather` 共用 `default.py`，按 `sys.argv[0]` 判别来源 |
+| 21 | **覆盖安装时报错「安装失败 / 已安装相同或更新版本」** | Kodi 按 `addon.xml` 的 `version` 判断是否为升级；用与已装版本相同的 zip 覆盖可能被拒绝 | 使用**版本号更高**的 zip（当前 `1.0.1`，旧版 `1.0.0`）；必要时先在插件管理里卸载旧版再安装；不要手动解压 zip，直接选 `.zip` 文件 |
 
 ---
 

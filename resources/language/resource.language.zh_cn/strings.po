@@ -504,6 +504,46 @@ msgctxt "#32180"
 msgid "China Weather"
 msgstr "中国天气"
 
+msgctxt "#32181"
+msgid "Weather locations"
+msgstr "天气地点"
+
+msgctxt "#32182"
+msgid "Location 1"
+msgstr "地点 1"
+
+msgctxt "#32183"
+msgid "Location 2"
+msgstr "地点 2"
+
+msgctxt "#32184"
+msgid "Location 3"
+msgstr "地点 3"
+
+msgctxt "#32185"
+msgid "Select a Chinese city. Location 1 also becomes the add-on's current city."
+msgstr "点击搜索并选择中国城市；地点 1 同时作为插件菜单的当前城市。"
+
+msgctxt "#32186"
+msgid "Select city"
+msgstr "选择城市"
+
+msgctxt "#32187"
+msgid "No matching city found"
+msgstr "未找到匹配城市"
+
+msgctxt "#32188"
+msgid "Location set: {0}"
+msgstr "已设置地点：{0}"
+
+msgctxt "#32190"
+msgid "Or type a city name (for the location above)"
+msgstr "或手动输入城市名（对应上方地点）"
+
+msgctxt "#32191"
+msgid "If the button does nothing, type a Chinese city name here (e.g. Shijiazhuang); the add-on resolves the station codes automatically."
+msgstr "按钮无反应时可直接在此填写中文城市名，例如「石家庄」；插件会自动查询对应的气象站点编码。"
+
 msgctxt "#32200"
 msgid "Monday"
 msgstr "星期一"

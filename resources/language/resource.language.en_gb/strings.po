@@ -504,6 +504,46 @@ msgctxt "#32180"
 msgid "China Weather"
 msgstr "China Weather"
 
+msgctxt "#32181"
+msgid "Weather locations"
+msgstr "Weather locations"
+
+msgctxt "#32182"
+msgid "Location 1"
+msgstr "Location 1"
+
+msgctxt "#32183"
+msgid "Location 2"
+msgstr "Location 2"
+
+msgctxt "#32184"
+msgid "Location 3"
+msgstr "Location 3"
+
+msgctxt "#32185"
+msgid "Select a Chinese city. Location 1 also becomes the add-on's current city."
+msgstr "Select a Chinese city. Location 1 also becomes the add-on's current city."
+
+msgctxt "#32186"
+msgid "Select city"
+msgstr "Select city"
+
+msgctxt "#32187"
+msgid "No matching city found"
+msgstr "No matching city found"
+
+msgctxt "#32188"
+msgid "Location set: {0}"
+msgstr "Location set: {0}"
+
+msgctxt "#32190"
+msgid "Or type a city name (for the location above)"
+msgstr "Or type a city name (for the location above)"
+
+msgctxt "#32191"
+msgid "If the button does nothing, type a Chinese city name here (e.g. Shijiazhuang); the add-on resolves the station codes automatically."
+msgstr "If the button does nothing, type a Chinese city name here (e.g. Shijiazhuang); the add-on resolves the station codes automatically."
+
 msgctxt "#32200"
 msgid "Monday"
 msgstr "Monday"
