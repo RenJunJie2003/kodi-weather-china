@@ -16,7 +16,7 @@
 
 ### 方式 A：从 zip 安装（推荐）
 
-1. 取得 `dist/plugin.weather.china-1.0.1.zip`（仓库 Release 里直接下载；或本地执行 `python tools/make_release.py` 生成）。
+1. 取得 `dist/plugin.weather.china-1.0.2.zip`（仓库 Release 里直接下载；或本地执行 `python tools/make_release.py` 生成）。
 2. Kodi → ⚙ 设置 → **插件** → 打开「未知来源」（首次需要）→ **从 zip 文件安装** → 选择 zip。
 3. 提示「插件安装成功」后即可在 **插件 → 程序 / 我的插件 → 中国天气 China Weather** 找到。
 4. 若想常驻主菜单：在插件上长按/右键 → **添加到收藏**，或在皮肤设置里把它加入主菜单项。

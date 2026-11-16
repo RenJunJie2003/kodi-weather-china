@@ -68,7 +68,7 @@ kodi-weather-china/                    ← 仓库根 = Kodi 插件根（addon.xm
 │   └── make_release.py                生成 dist/plugin.weather.china-<ver>.zip
 │
 └── dist/
-    └── plugin.weather.china-1.0.1.zip  ← 可直接用 Kodi「从 zip 安装」的成品
+    └── plugin.weather.china-1.0.2.zip  ← 可直接用 Kodi「从 zip 安装」的成品
 ```
 
 **打包约定**：zip 内顶层目录名必须等于 addon id（`plugin.weather.china/`），`addon.xml` 位于该目录根部。`make_release.py` 自动完成这一结构，并剔除 `__pycache__` / `*.pyc` / `*.tmp`。
@@ -120,7 +120,7 @@ default.py / service.py
 | 项 | 值 | 说明 |
 |---|---|---|
 | `id` | `plugin.weather.china` | 必须与 zip 顶层目录、settings.xml `section id` 一致 |
-| `version` | `1.0.1` | Kodi 依据它判断升级；发布包文件名带版本号 |
+| `version` | `1.0.2` | Kodi 依据它判断升级；发布包文件名带版本号 |
 | `requires` | `xbmc.python` `3.0.0` | **最低 Kodi 19 (Matrix)**；Kodi 18 为 Python 2，不兼容 |
 | `xbmc.python.pluginsource` | `library="default.py"` | 交互式插件入口；`<provides>executable</provides>` 让插件出现在「程序/插件」列表 |
 | `xbmc.service` | `library="service.py" start="login"` | 可选后台服务；不需要皮肤集成可在设置里关闭 `skin_props` |

@@ -77,7 +77,7 @@ class FakeAddon(object):
 
     def getAddonInfo(self, key):
         return {"path": ROOT, "profile": tempfile.mkdtemp(prefix="kodi-wx-"),
-                "name": "中国天气", "version": "1.0.1"}.get(key, "")
+                "name": "中国天气", "version": "1.0.2"}.get(key, "")
 
     def getSetting(self, key):
         return SETTINGS.get(key, "")
@@ -322,6 +322,8 @@ def main():
     points = [e.get("point") for e in addon_tree.findall("extension")]
     check("addon.xml 注册 xbmc.python.weather",
           "xbmc.python.weather" in points, points)
+    check("weather 为首个扩展点（决定插件进入「天气」分类）",
+          bool(points) and points[0] == "xbmc.python.weather", points[:3])
     weather_ext = [e for e in addon_tree.findall("extension")
                    if e.get("point") == "xbmc.python.weather"]
     check("天气入口与插件入口共用 default.py",

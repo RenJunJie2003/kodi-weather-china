@@ -58,7 +58,10 @@ for personal reference only; always follow official issuances for
 safety-critical decisions.
 """
 
-CHANGELOG = """[B]1.0.1[/B] - 2026-11-16
+CHANGELOG = """[B]1.0.2[/B] - 2026-11-16
+- Weather is now the primary add-on type, adding a Weather category in My add-ons
+
+[B]1.0.1[/B] - 2026-11-16
 - Fix: weather location buttons did nothing (unified plugin/weather entry point)
 - Add: manual Chinese city-name input for each location, station codes resolved automatically
 - Add: background service also publishes Kodi weather window (12600) properties

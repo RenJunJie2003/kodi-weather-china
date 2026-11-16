@@ -13,9 +13,9 @@
 - **PR**：https://github.com/xbmc/repo-plugins/pull/4898
 - **目标分支**：`matrix`（Kodi 19+；按官方规则一次提交即覆盖 Nexus / Omega / Piers）
 - **独立源码仓库**：https://github.com/RenJunJie2003/kodi-weather-china
-- **提交分支**：`RenJunJie2003/repo-plugins:plugin.weather.china`，单 commit `5579804c`，message `[plugin.weather.china] v1.0.0`（PR 快照；本地已升到 1.0.1，待 GitHub 网页恢复后同步 commit 与标题）
+- **提交分支**：`RenJunJie2003/repo-plugins:plugin.weather.china`，单 commit 待同步，message `[plugin.weather.china] v1.0.2`
 - **合规**：`kodi-addon-checker` 0.0.36（`--branch matrix --PR`）0 ERROR；许可证 GPL-3.0；提交目录仅含 52 个运行时文件
-- 注：PR 目前停在上一版快照（53 文件），最新一轮「地点按钮」修复待 GitHub 网页通道恢复后同步；本地 zip 与源码仓库为最新。
+- 注：PR #4898 已与本地 1.0.1 完全同步（52 文件 / +4802 −0 / mergeable），独立源码仓库也已同步。
 
 > `xbmc/repo-plugins` 的 `master` 分支不接受提交（官方 README 明确写着 `use branches instead`）。PR 需 Team Kodi 人工审核，审核员可能要求补一个 Kodi 论坛讨论帖。官方仓库只放运行时文件，完整文档、测试与打包工具都在独立源码仓库。
 
@@ -23,7 +23,7 @@
 
 | 官方要求 | 当前状态 |
 |---|---|
-| 单 commit、message `[addonid] vX.Y.Z` | ✅ `[plugin.weather.china] v1.0.0`（PR 快照；本地 1.0.1 待同步） |
+| 单 commit、message `[addonid] vX.Y.Z` | ✅ `[plugin.weather.china] v1.0.1` |
 | 目标为版本分支（非 master） | ✅ `matrix`，覆盖 Nexus / Omega / Piers |
 | 至少 `en_GB` 元数据、UI 字符串全本地化 | ✅ 129 条中英 `strings.po` |
 | copyleft 许可 + `LICENSE.txt` | ✅ GPL-3.0 全文 |
@@ -41,7 +41,7 @@
 
 ## 快速开始
 
-1. 下载 `dist/plugin.weather.china-1.0.1.zip`（或执行 `python tools/make_release.py` 自行生成）。
+1. 下载 `dist/plugin.weather.china-1.0.2.zip`（或执行 `python tools/make_release.py` 自行生成）。
 2. Kodi → ⚙ 设置 → 插件 → **从 zip 文件安装** → 选择该 zip。
 3. Kodi → 插件 → **中国天气 China Weather** → 首次进入会显示北京实况。
 4. 菜单 **切换城市** → **中文城市搜索** → 输入「石家庄」→ 选中即切换。
